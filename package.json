@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "discord.js": "^12.4.0",
+    "mongoose": "^5.10.9",
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "name": "xdai-bot",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT"
+}
