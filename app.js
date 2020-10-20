@@ -43,7 +43,9 @@ client.on("message", function (message) {
             )
 
             function sendDrop() {
-                middleware.dropPending(message.author)
+                middleware.dropPending(message.author).then(
+                        message.reply(`Sending...`)
+                )
                 faucet.sendDropTo(args[0]).then(obj => {
                     if (obj["hash"]) {
                         message.reply(`xDAI sent to ${args[0]} \nhttp://blockscout.com/poa/xdai/tx/${obj["hash"]}`)

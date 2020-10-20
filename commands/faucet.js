@@ -40,8 +40,6 @@ async function sendDropTo(address) {
 
 
 
-
-
 module.exports = {
   getBalance,
   sendDropTo
