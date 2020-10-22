@@ -14,7 +14,7 @@ const path = require('path'),
 
 
 const client = new Discord.Client();
-const prefix = "$";
+const prefix = "$$";
 
 client.on("message", function (message) {
     if (message.author.bot) return;
@@ -77,7 +77,7 @@ client.on("message", function (message) {
     }
 
     else if (command === "help")
-        message.reply('Faucet cmd -> `$faucet [address]`');
+        message.reply('Faucet cmd -> `$$faucet [address]`');
 	
 	else {
 		message.reply('use $help');
