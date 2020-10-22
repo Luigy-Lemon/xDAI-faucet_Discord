@@ -30,7 +30,7 @@ client.on("message", function (message) {
         return
     }
     else if (command === "faucet") {
-        if (args[0].length === 42 && args[0].slice(0, 2) === "0x") {
+        if (args[0] && args[0].length === 42 && args[0].slice(0, 2) === "0x") {
 
             middleware.hasReceivedDrop(message.author, args[0]).then(
                 res => {
@@ -78,6 +78,10 @@ client.on("message", function (message) {
 
     else if (command === "help")
         message.reply('Faucet cmd -> `$faucet [address]`');
+	
+	else {
+		message.reply('use $help');
+	}
 
 });
 
