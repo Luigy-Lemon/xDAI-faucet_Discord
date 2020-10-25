@@ -80,7 +80,7 @@ client.on("message", function (message) {
         message.reply('Faucet cmd -> `$$faucet [address]`');
 	
 	else {
-		message.reply('use $help');
+		message.reply('use $$help');
 	}
 
 });
