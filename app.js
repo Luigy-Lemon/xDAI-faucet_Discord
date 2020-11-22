@@ -16,8 +16,12 @@ const path = require('path'),
 const client = new Discord.Client();
 const prefix = "$$";
 
+let tempAuthors = [];
+let tempBalance = 1;
+
 client.on("message", function (message) {
     if (message.author.bot) return;
+    if (!message.author.verified) return;
     if (!message.content.startsWith(prefix)) return;
 
     const commandBody = message.content.slice(prefix.length);
@@ -29,15 +33,19 @@ client.on("message", function (message) {
         message.reply(`Pong!`);
         return
     }
+    else if (command === "address" && process.env.FAUCET_ADDRESS) {
+        message.reply(process.env.FAUCET_ADDRESS);
+        return
+    }
     else if (command === "faucet") {
-        if (args[0] && args[0].length === 42 && args[0].slice(0, 2) === "0x") {
-
+        if (args[0] && args[0].length === 42 && args[0].slice(0, 2) === "0x" && tempBalance>0.011) {       
             middleware.hasReceivedDrop(message.author, args[0]).then(
                 res => {
-                    if (res.hasReceivedFromFaucet) {
+                    if (res.hasReceivedFromFaucet || tempAuthors.includes(message.author)) {
                         message.reply(`You already used the faucet`);
                         return
                     }
+                    tempAuthors.push(message.author)
                     sendDrop()
                 }
             )
@@ -61,7 +69,9 @@ client.on("message", function (message) {
                 })
             }
         }
-
+        else if(tempBalance<=0.011){
+            message.reply(`Not enough xDAI in the faucet`)
+        }
         else { message.reply(`Input the address correctly`); return }
     }
 
@@ -73,7 +83,6 @@ client.on("message", function (message) {
             return
         }
         )
-
     }
 
     else if (command === "help")
