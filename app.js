@@ -21,7 +21,7 @@ let tempBalance = 1;
 
 client.on("message", function (message) {
     if (message.author.bot) return;
-    if (!message.author.verified) return;
+    if (!message.author.client.user.verified) return;
     if (!message.content.startsWith(prefix)) return;
 
     const commandBody = message.content.slice(prefix.length);
